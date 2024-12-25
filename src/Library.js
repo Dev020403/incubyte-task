@@ -21,6 +21,18 @@ class LibraryService {
         }
         book.isAvailable = false;
     }
+    // Return a borrowed book to the library
+    returnBook(isbn) {
+        // Check if a book with the given ISBN exists and is borrowed
+        const book = this.books.find(b => b.isbn === isbn);
+        if (!book) {
+            throw new Error('Book not found');
+        }
+        if (book.isAvailable) {
+            throw new Error('Book is not borrowed');
+        }
+        book.isAvailable = true;
+    }
 }
 
 module.exports = LibraryService;
