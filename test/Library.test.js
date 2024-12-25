@@ -52,5 +52,27 @@ describe('Library Service', () => {
             expect(() => library.borrowBook('1')).toThrow('Book is not available');
         });
     });
+    // Return book method testing
+    describe('returnBook method', () => {
+        // Test successfully returning a book if it is borrowed
+        it('should allow returning a book if it is borrowed', () => {
+            const book = new Book('1', 'JavaScript Basics', 'Dev Kapadia', 2024);
+            library.addBook(book);
+            library.borrowBook('1');
+            library.returnBook('1');
+            expect(library.books[0].isAvailable).toBe(true);
+        });
 
+        // Test throwing an error if the book is not borrowed
+        it('should throw an error if the book is not borrowed', () => {
+            const book = new Book('1', 'JavaScript Basics', 'Dev Kapadia', 2024);
+            library.addBook(book);
+            expect(() => library.returnBook('1')).toThrow('Book is not borrowed');
+        });
+
+        // Test throwing an error if the book is not found
+        it('should throw an error if the book is not found', () => {
+            expect(() => library.returnBook('nonexistent-isbn')).toThrow('Book not found');
+        });
+    });
 });
