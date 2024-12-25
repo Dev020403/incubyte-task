@@ -12,6 +12,15 @@ class LibraryService {
         }
         this.books.push(book);
     }
+    // Borrow a book from the library
+    borrowBook(isbn) {
+        //Check if a book with the given ISBN exists and is available
+        const book = this.books.find(b => b.isbn === isbn);
+        if (!book || !book.isAvailable) {
+            throw new Error('Book is not available');
+        }
+        book.isAvailable = false;
+    }
 }
 
 module.exports = LibraryService;
