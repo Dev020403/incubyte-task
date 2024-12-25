@@ -75,4 +75,25 @@ describe('Library Service', () => {
             expect(() => library.returnBook('nonexistent-isbn')).toThrow('Book not found');
         });
     });
+
+    //Get Available Books method testing
+    describe('getAvailableBooks method', () => {
+        // Test getting all available books when there are no borrowed books
+        it('should return all available books', () => {
+            const book1 = new Book('1', 'JavaScript Basics', 'Dev Kapadia', 2024);
+            const book2 = new Book('2', 'Advanced JavaScript', 'Dev Kapadia', 2024);
+            library.addBook(book1);
+            library.addBook(book2);
+            expect(library.getAvailableBooks()).toEqual([book1, book2]);
+        });
+        // Test getting all available books in the library when there are borrowed books
+        it('should return all available books', () => {
+            const book1 = new Book('1', 'JavaScript Basics', 'Dev Kapadia', 2024);
+            const book2 = new Book('2', 'Advanced JavaScript', 'Dev Kapadia', 2024);
+            library.addBook(book1);
+            library.addBook(book2);
+            library.borrowBook('1');
+            expect(library.getAvailableBooks()).toEqual([book2]);
+        });
+    });
 });
