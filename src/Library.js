@@ -33,6 +33,11 @@ class LibraryService {
         }
         book.isAvailable = true;
     }
+    // Get all available books in the library
+    getAvailableBooks() {
+        // Filter the books array to return only available books
+        return this.books.filter(book => book.isAvailable);
+    }
 }
 
 module.exports = LibraryService;
