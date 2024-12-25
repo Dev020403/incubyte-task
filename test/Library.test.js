@@ -34,5 +34,23 @@ describe('Library Service', () => {
             expect(() => library.addBook(book2)).toThrow('A book with this ISBN already exists');
         });
     });
+    // borrowBook method testing
+    describe('borrowBook method', () => {
+        // Test successfully borrowing a book if it is available
+        it('should allow borrowing a book if it is available', () => {
+            const book = new Book('1', 'JavaScript Basics', 'Dev Kapadia', 2024);
+            library.addBook(book);
+            library.borrowBook('1');
+            expect(library.books[0].isAvailable).toBe(false);
+        });
+
+        // Test throwing an error if the book is not available
+        it('should throw an error if the book is not available', () => {
+            const book = new Book('1', 'JavaScript Basics', 'Dev Kapadia', 2024);
+            library.addBook(book);
+            library.borrowBook('1');
+            expect(() => library.borrowBook('1')).toThrow('Book is not available');
+        });
+    });
 
 });
